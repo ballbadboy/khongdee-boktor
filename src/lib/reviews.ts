@@ -6,6 +6,13 @@ import html from "remark-html";
 
 const reviewsDir = path.join(process.cwd(), "content/reviews");
 
+export interface Product {
+  name: string;
+  price: string;
+  link: string;
+  badge?: string;
+}
+
 export interface Review {
   slug: string;
   title: string;
@@ -17,6 +24,7 @@ export interface Review {
   image: string;
   date: string;
   tags: string[];
+  products: Product[];
   content?: string;
 }
 
@@ -39,6 +47,7 @@ export function getAllReviews(): Review[] {
         image: data.image || "/images/placeholder.svg",
         date: data.date || new Date().toISOString().slice(0, 10),
         tags: data.tags || [],
+        products: data.products || [],
       };
     })
     .sort((a, b) => b.date.localeCompare(a.date));
@@ -61,6 +70,7 @@ export async function getReviewBySlug(slug: string): Promise<Review | null> {
     image: data.image || "/images/placeholder.svg",
     date: data.date || new Date().toISOString().slice(0, 10),
     tags: data.tags || [],
+    products: data.products || [],
     content: result.toString(),
   };
 }

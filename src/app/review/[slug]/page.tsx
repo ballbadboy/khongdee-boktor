@@ -29,52 +29,104 @@ export default async function ReviewPage({ params }: { params: Promise<{ slug: s
   const schema = generateReviewSchema(review);
 
   return (
-    <article className="fade-in">
+    <article className="review-page">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
 
-      <div style={{ marginBottom: 32 }}>
-        <a href="/" style={{ color: "var(--text-muted)", textDecoration: "none" }}>← กลับหน้าแรก</a>
+      <div className="review-page-back">
+        <a href="/">← กลับหน้าแรก</a>
       </div>
 
-      <div style={{ display: "flex", gap: 8, marginBottom: 16 }}>
-        <span style={{ background: "var(--shopee-light)", color: "var(--shopee)", padding: "4px 12px", borderRadius: 4, fontSize: "0.85rem", fontWeight: 600 }}>
-          {review.category}
-        </span>
-        <span style={{ color: "var(--text-muted)", fontSize: "0.85rem", lineHeight: "28px" }}>{review.date}</span>
+      <div className="review-page-meta">
+        <span className="review-page-cat">{review.category}</span>
+        <span className="review-page-date">{review.date}</span>
       </div>
 
-      <h1 style={{ fontSize: "2rem", fontWeight: 700, marginBottom: 16 }}>{review.title}</h1>
-      <p style={{ fontSize: "1.1rem", color: "var(--text-muted)", marginBottom: 24 }}>{review.excerpt}</p>
+      <h1 className="review-page-title">{review.title}</h1>
+      <p className="review-page-excerpt">{review.excerpt}</p>
 
       {review.image && !review.image.includes("placeholder") && (
-        <img
-          src={review.image}
-          alt={review.title}
-          style={{ width: "100%", maxHeight: 400, objectFit: "cover", borderRadius: 12, marginBottom: 24 }}
-          loading="lazy"
-        />
+        <img src={review.image} alt={review.title} className="review-page-hero" loading="lazy" />
       )}
 
-      <div className="card" style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 32 }}>
-        <div>
-          <span style={{ color: "#F59E0B", fontSize: "1.25rem" }}>
-            {Array.from({ length: 5 }, (_, i) => (i < review.rating ? "★" : "☆")).join("")}
-          </span>
-          <span style={{ marginLeft: 12, fontWeight: 700, fontSize: "1.25rem", color: "var(--shopee)" }}>{review.price}</span>
+      {/* ── Product Buy Buttons — ซื้อตรงยี่ห้อเลย ── */}
+      {review.products.length > 0 && (
+        <div className="product-grid">
+          <h2 className="product-grid-title">เลือกซื้อได้เลย</h2>
+          {review.products.map((product, i) => (
+            <a
+              key={i}
+              href={product.link}
+              target="_blank"
+              rel="noopener noreferrer nofollow"
+              className="product-card"
+            >
+              <div className="product-card-info">
+                <div className="product-card-name">
+                  {product.name}
+                  {product.badge && <span className="product-badge">{product.badge}</span>}
+                </div>
+                <div className="product-card-price">{product.price}</div>
+              </div>
+              <div className="product-card-btn">
+                ซื้อเลย
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10m0 0L9 4m4 4L9 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+              </div>
+            </a>
+          ))}
         </div>
-        <a href={review.shopeeLink} target="_blank" rel="noopener noreferrer nofollow" className="shopee-btn">
-          🛒 ซื้อเลยที่ Shopee
-        </a>
-      </div>
+      )}
+
+      {/* ── Fallback: single buy button ── */}
+      {review.products.length === 0 && (
+        <div className="review-page-cta-bar">
+          <div>
+            <span className="review-page-stars">
+              {Array.from({ length: 5 }, (_, i) => (i < review.rating ? "★" : "☆")).join("")}
+            </span>
+            <span className="review-page-price">{review.price}</span>
+          </div>
+          <a href={review.shopeeLink} target="_blank" rel="noopener noreferrer nofollow" className="shopee-btn">
+            ซื้อเลยที่ Shopee
+          </a>
+        </div>
+      )}
 
       <div className="prose" dangerouslySetInnerHTML={{ __html: review.content || "" }} />
 
-      <div style={{ background: "var(--shopee-light)", borderRadius: 12, padding: 32, textAlign: "center", marginTop: 48 }}>
-        <p style={{ fontWeight: 600, fontSize: "1.25rem", marginBottom: 16 }}>สนใจสินค้านี้?</p>
-        <a href={review.shopeeLink} target="_blank" rel="noopener noreferrer nofollow" className="shopee-btn" style={{ fontSize: "1.1rem", padding: "14px 32px" }}>
-          🛒 ดูราคาล่าสุดใน Shopee
-        </a>
-      </div>
+      {/* ── Bottom CTA ── */}
+      {review.products.length > 0 ? (
+        <div className="product-grid" style={{ marginTop: 48 }}>
+          <h2 className="product-grid-title">สนใจสินค้าไหน? กดซื้อได้เลย</h2>
+          {review.products.map((product, i) => (
+            <a
+              key={i}
+              href={product.link}
+              target="_blank"
+              rel="noopener noreferrer nofollow"
+              className="product-card"
+            >
+              <div className="product-card-info">
+                <div className="product-card-name">
+                  {product.name}
+                  {product.badge && <span className="product-badge">{product.badge}</span>}
+                </div>
+                <div className="product-card-price">{product.price}</div>
+              </div>
+              <div className="product-card-btn">
+                ซื้อเลย
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10m0 0L9 4m4 4L9 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+              </div>
+            </a>
+          ))}
+        </div>
+      ) : (
+        <div className="review-page-bottom-cta">
+          <p>สนใจสินค้านี้?</p>
+          <a href={review.shopeeLink} target="_blank" rel="noopener noreferrer nofollow" className="shopee-btn">
+            ดูราคาล่าสุดใน Shopee
+          </a>
+        </div>
+      )}
     </article>
   );
 }

@@ -8,6 +8,27 @@ shopeeLink: "https://shopee.co.th/search?keyword=%E0%B8%AB%E0%B8%B9%E0%B8%9F%E0%
 image: "https://images.unsplash.com/photo-1590658268037-6bf12f032f55?w=800&h=600&fit=crop"
 date: "2026-03-18"
 tags: ["หูฟัง", "Bluetooth", "gadget", "ไม่เกิน1000"]
+products:
+  - name: "QCY T13 ANC 2"
+    price: "฿599"
+    link: "https://shopee.co.th/QCY-T13-ANC-2-i.123456.789012?af_sub_siteid=15306100390"
+    badge: "คุ้มสุด"
+  - name: "Baseus Bowie E13"
+    price: "฿499"
+    link: "https://shopee.co.th/Baseus-Bowie-E13-i.234567.890123?af_sub_siteid=15306100390"
+    badge: "ถูกสุด"
+  - name: "Haylou GT7 Neo"
+    price: "฿699"
+    link: "https://shopee.co.th/Haylou-GT7-Neo-i.345678.901234?af_sub_siteid=15306100390"
+    badge: ""
+  - name: "Edifier X2"
+    price: "฿890"
+    link: "https://shopee.co.th/Edifier-X2-i.456789.012345?af_sub_siteid=15306100390"
+    badge: "เสียงดีสุด"
+  - name: "Xiaomi Buds 6 Play"
+    price: "฿999"
+    link: "https://shopee.co.th/Xiaomi-Buds-6-Play-i.567890.123456?af_sub_siteid=15306100390"
+    badge: ""
 ---
 
 ## ทำไมหูฟังไร้สายราคาถูกถึงดีขึ้นมาก?
