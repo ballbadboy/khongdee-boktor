@@ -25,30 +25,54 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
-        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
       </head>
       <body>
-        <nav style={{ background: "var(--bg-card)", borderBottom: "1px solid rgba(0,0,0,0.08)", padding: "16px 0", position: "sticky", top: 0, zIndex: 50 }}>
-          <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 24px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-            <a href="/" style={{ fontSize: "1.5rem", fontWeight: 700, color: "var(--shopee)", textDecoration: "none" }}>
-              🛒 ของดีบอกต่อ
-            </a>
-            <div style={{ display: "flex", gap: 24 }}>
-              <a href="/category/tech" style={{ color: "var(--text-muted)", textDecoration: "none" }}>Tech</a>
-              <a href="/category/home" style={{ color: "var(--text-muted)", textDecoration: "none" }}>บ้าน</a>
-              <a href="/category/beauty" style={{ color: "var(--text-muted)", textDecoration: "none" }}>ความสวย</a>
-              <a href="/category/health" style={{ color: "var(--text-muted)", textDecoration: "none" }}>สุขภาพ</a>
+        <nav className="site-nav">
+          <div className="site-nav-inner">
+            <a href="/" className="site-logo">ของดี<span>บอกต่อ</span></a>
+            <div className="nav-links">
+              <a href="/category/tech">Tech</a>
+              <a href="/category/home">บ้าน</a>
+              <a href="/category/beauty">ความสวย</a>
+              <a href="/category/health">สุขภาพ</a>
+              <a href="/category/kids">แม่และเด็ก</a>
             </div>
           </div>
         </nav>
-        <main style={{ maxWidth: 1200, margin: "0 auto", padding: "32px 24px" }}>
-          {children}
-        </main>
-        <footer style={{ background: "var(--bg-card)", padding: "48px 24px", marginTop: 64, textAlign: "center", color: "var(--text-muted)" }}>
-          <p style={{ fontWeight: 600, marginBottom: 8 }}>🛒 ของดีบอกต่อ</p>
-          <p style={{ fontSize: "0.875rem" }}>รีวิวสินค้าจาก Shopee คัดสรรโดยคนไทย</p>
-          <p style={{ fontSize: "0.75rem", marginTop: 16 }}>* ลิงก์บางส่วนเป็น affiliate link เราอาจได้รับค่าคอมมิชชันจากการซื้อสินค้าผ่านลิงก์</p>
+
+        <main>{children}</main>
+
+        <footer className="site-footer">
+          <div className="footer-inner">
+            <div className="footer-top">
+              <div className="footer-brand">
+                <div className="footer-brand-name">ของดีบอกต่อ</div>
+                <p className="footer-brand-desc">
+                  รีวิวสินค้าจาก Shopee คัดสรรโดยคนไทย เราทดสอบและเปรียบเทียบเพื่อให้คุณได้ของดีจริง ไม่ต้องเสี่ยง
+                </p>
+              </div>
+              <div className="footer-links">
+                <div className="footer-links-col">
+                  <h4>หมวดหมู่</h4>
+                  <a href="/category/tech">Tech & Gadget</a>
+                  <a href="/category/home">ของใช้ในบ้าน</a>
+                  <a href="/category/beauty">ความสวยความงาม</a>
+                  <a href="/category/health">สุขภาพ</a>
+                </div>
+                <div className="footer-links-col">
+                  <h4>เกี่ยวกับ</h4>
+                  <a href="/">หน้าแรก</a>
+                  <a href="https://x.com/Drk_thorSx" target="_blank" rel="noopener">X (Twitter)</a>
+                </div>
+              </div>
+            </div>
+            <div className="footer-bottom">
+              <span>&copy; 2026 ของดีบอกต่อ — All rights reserved</span>
+              <span>* ลิงก์บางส่วนเป็น affiliate link เราอาจได้รับค่าคอมมิชชัน</span>
+            </div>
+          </div>
         </footer>
       </body>
     </html>

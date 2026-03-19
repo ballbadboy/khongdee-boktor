@@ -1,7 +1,11 @@
 import { getAllReviews, getCategories } from "@/lib/reviews";
 
-function StarRating({ rating }: { rating: number }) {
-  return <span>{Array.from({ length: 5 }, (_, i) => (i < rating ? "★" : "☆")).join("")}</span>;
+function Stars({ rating }: { rating: number }) {
+  return (
+    <span className="review-card-stars">
+      {Array.from({ length: 5 }, (_, i) => (i < rating ? "★" : "☆")).join("")}
+    </span>
+  );
 }
 
 export default function Home() {
@@ -10,50 +14,95 @@ export default function Home() {
 
   return (
     <>
-      <section style={{ textAlign: "center", padding: "48px 0" }} className="fade-in">
-        <h1 style={{ fontSize: "2.5rem", fontWeight: 700, marginBottom: 16 }}>
-          🛒 ของดีบอกต่อ
+      {/* ── Hero ── */}
+      <section className="hero">
+        <div className="hero-badge animate-in">
+          <span>●</span> อัพเดทล่าสุด {new Date().toLocaleDateString("th-TH", { day: "numeric", month: "short", year: "numeric" })}
+        </div>
+        <h1 className="animate-in delay-1">
+          คัดมาแล้ว<br /><em>ของดีจริง</em>
         </h1>
-        <p style={{ fontSize: "1.25rem", color: "var(--text-muted)", maxWidth: 600, margin: "0 auto" }}>
-          รวมรีวิวสินค้าดี ราคาโดน จาก Shopee คัดสรรแล้วว่าดีจริง ไม่ต้องเสียเวลาหาเอง
+        <p className="hero-sub animate-in delay-2">
+          รวมรีวิวสินค้าจาก Shopee ที่คนใช้จริงบอกต่อ ไม่ต้องเสียเวลาหาเอง ไม่ต้องเสี่ยงซื้อผิด
         </p>
+        <a href="#reviews" className="hero-cta animate-in delay-3">
+          ดูรีวิวล่าสุด
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10m0 0L9 4m4 4L9 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+        </a>
       </section>
 
-      <section style={{ marginBottom: 48 }}>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(160px, 1fr))", gap: 16 }}>
-          {categories.map((cat) => (
-            <a key={cat.slug} href={`/category/${cat.slug}`} className="card" style={{ textAlign: "center", textDecoration: "none", color: "var(--text)" }}>
-              <span style={{ fontSize: "2rem" }}>{cat.emoji}</span>
-              <p style={{ fontWeight: 600, marginTop: 8 }}>{cat.name}</p>
+      {/* ── Trust Bar ── */}
+      <div className="trust-bar animate-in delay-4">
+        <div className="trust-item">
+          <div className="trust-icon">✓</div>
+          <span>รีวิวจากคนใช้จริง</span>
+        </div>
+        <div className="trust-item">
+          <div className="trust-icon">✕</div>
+          <span>ไม่รับสปอนเซอร์</span>
+        </div>
+        <div className="trust-item">
+          <div className="trust-icon">↻</div>
+          <span>อัพเดททุกวัน</span>
+        </div>
+        <div className="trust-item">
+          <div className="trust-icon">🛡</div>
+          <span>คัดสรรก่อนแนะนำ</span>
+        </div>
+      </div>
+
+      {/* ── Categories ── */}
+      <section className="section">
+        <div className="section-header">
+          <h2>หมวดหมู่</h2>
+        </div>
+        <div className="cat-grid">
+          {categories.map((cat, i) => (
+            <a key={cat.slug} href={`/category/${cat.slug}`} className={`cat-card animate-in delay-${i + 1}`}>
+              <div className="cat-icon">{cat.emoji}</div>
+              <span className="cat-name">{cat.name}</span>
             </a>
           ))}
         </div>
       </section>
 
-      <section>
-        <h2 style={{ fontSize: "1.5rem", fontWeight: 700, marginBottom: 24 }}>รีวิวล่าสุด</h2>
+      {/* ── Latest Reviews ── */}
+      <section className="section" id="reviews">
+        <div className="section-header">
+          <h2>รีวิวล่าสุด</h2>
+          <a href="/category/tech">ดูทั้งหมด →</a>
+        </div>
+
         {reviews.length === 0 ? (
-          <p style={{ color: "var(--text-muted)", textAlign: "center", padding: 48 }}>
-            กำลังเตรียมรีวิวให้... เร็วๆ นี้!
-          </p>
+          <div className="empty-state">
+            <p>กำลังเตรียมรีวิวให้... เร็วๆ นี้</p>
+          </div>
         ) : (
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: 24 }}>
-            {reviews.map((review) => (
-              <a key={review.slug} href={`/review/${review.slug}`} className="card fade-in" style={{ textDecoration: "none", color: "var(--text)", overflow: "hidden" }}>
+          <div className="review-grid">
+            {reviews.map((review, i) => (
+              <a key={review.slug} href={`/review/${review.slug}`} className={`review-card animate-in delay-${i + 1}`}>
                 {review.image && !review.image.includes("placeholder") && (
-                  <img src={review.image} alt={review.title} style={{ width: "100%", height: 180, objectFit: "cover", borderRadius: 8, marginBottom: 12 }} loading="lazy" />
+                  <img
+                    src={review.image}
+                    alt={review.title}
+                    className="review-card-img"
+                    loading="lazy"
+                  />
                 )}
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "start", marginBottom: 12 }}>
-                  <span style={{ fontSize: "0.75rem", background: "var(--shopee-light)", color: "var(--shopee)", padding: "4px 8px", borderRadius: 4, fontWeight: 600 }}>
-                    {review.category}
-                  </span>
-                  <span style={{ color: "#F59E0B" }}><StarRating rating={review.rating} /></span>
-                </div>
-                <h3 style={{ fontWeight: 600, fontSize: "1.1rem", marginBottom: 8 }}>{review.title}</h3>
-                <p style={{ color: "var(--text-muted)", fontSize: "0.9rem", marginBottom: 12 }}>{review.excerpt}</p>
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                  <span style={{ fontWeight: 700, color: "var(--shopee)" }}>{review.price}</span>
-                  <span className="shopee-btn" style={{ padding: "8px 16px", fontSize: "0.85rem" }}>ดูใน Shopee</span>
+                <div className="review-card-body">
+                  <div className="review-card-meta">
+                    <span className="review-card-cat">{review.category}</span>
+                    <Stars rating={review.rating} />
+                  </div>
+                  <h3 className="review-card-title">{review.title}</h3>
+                  <p className="review-card-excerpt">{review.excerpt}</p>
+                  <div className="review-card-footer">
+                    <span className="review-card-price">{review.price}</span>
+                    <span className="review-card-btn">
+                      ดูใน Shopee
+                      <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10m0 0L9 4m4 4L9 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                    </span>
+                  </div>
                 </div>
               </a>
             ))}
