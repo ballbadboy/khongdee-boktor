@@ -10,10 +10,14 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const review = await getReviewBySlug(slug);
   if (!review) return { title: "ไม่พบรีวิว" };
+  const url = `https://khongdee-boktor.vercel.app/review/${slug}`;
+  const img = review.image && !review.image.includes("placeholder") ? review.image : "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=1200&h=630&fit=crop";
   return {
     title: `${review.title} — ของดีบอกต่อ`,
-    description: review.excerpt,
-    openGraph: { title: review.title, description: review.excerpt, type: "article" },
+    description: review.excerpt.length < 100 ? `${review.excerpt} — รีวิวจริงจากคนใช้จริง เปรียบเทียบราคา คุณภาพ คัดมาแล้วว่าคุ้มค่า ดูรายละเอียดและราคาล่าสุดที่นี่` : review.excerpt,
+    alternates: { canonical: url },
+    openGraph: { title: review.title, description: review.excerpt, type: "article", url, images: [{ url: img, width: 1200, height: 630 }], locale: "th_TH" },
+    twitter: { card: "summary_large_image", title: review.title, images: [img] },
   };
 }
 

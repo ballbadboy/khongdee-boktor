@@ -4,13 +4,18 @@ import { generateWebsiteSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
   title: "ของดีบอกต่อ — รีวิวสินค้า Shopee คัดสรรโดยคนไทย",
-  description: "รวมรีวิวของดี สินค้าน่าซื้อจาก Shopee ทั้ง Tech, ของใช้ในบ้าน, ความสวยความงาม, สุขภาพ คัดสรรแล้วว่าดีจริง",
+  description: "รวมรีวิวของดี สินค้าน่าซื้อจาก Shopee ทั้ง Tech, ของใช้ในบ้าน, ความสวยความงาม, สุขภาพ อุปกรณ์ WFH และ Gadget คัดสรรแล้วว่าดีจริง พร้อมเปรียบเทียบราคาให้",
+  alternates: { canonical: "https://khongdee-boktor.vercel.app" },
   openGraph: {
-    title: "ของดีบอกต่อ",
-    description: "รีวิวสินค้า Shopee คัดสรรโดยคนไทย",
+    title: "ของดีบอกต่อ — รีวิวสินค้า Shopee คัดสรรโดยคนไทย",
+    description: "รวมรีวิวของดี สินค้าน่าซื้อจาก Shopee คัดสรรแล้วว่าดีจริง พร้อมเปรียบเทียบราคา",
     type: "website",
     locale: "th_TH",
+    url: "https://khongdee-boktor.vercel.app",
+    images: [{ url: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=1200&h=630&fit=crop", width: 1200, height: 630, alt: "ของดีบอกต่อ" }],
   },
+  twitter: { card: "summary_large_image", title: "ของดีบอกต่อ", description: "รีวิวสินค้า Shopee คัดสรรโดยคนไทย", images: ["https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=1200&h=630&fit=crop"] },
+  robots: { index: true, follow: true },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
