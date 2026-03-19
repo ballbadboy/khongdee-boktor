@@ -39,7 +39,10 @@ export default function Home() {
         ) : (
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: 24 }}>
             {reviews.map((review) => (
-              <a key={review.slug} href={`/review/${review.slug}`} className="card fade-in" style={{ textDecoration: "none", color: "var(--text)" }}>
+              <a key={review.slug} href={`/review/${review.slug}`} className="card fade-in" style={{ textDecoration: "none", color: "var(--text)", overflow: "hidden" }}>
+                {review.image && !review.image.includes("placeholder") && (
+                  <img src={review.image} alt={review.title} style={{ width: "100%", height: 180, objectFit: "cover", borderRadius: 8, marginBottom: 12 }} loading="lazy" />
+                )}
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "start", marginBottom: 12 }}>
                   <span style={{ fontSize: "0.75rem", background: "var(--shopee-light)", color: "var(--shopee)", padding: "4px 8px", borderRadius: 4, fontWeight: 600 }}>
                     {review.category}

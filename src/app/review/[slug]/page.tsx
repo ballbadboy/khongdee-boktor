@@ -42,6 +42,15 @@ export default async function ReviewPage({ params }: { params: Promise<{ slug: s
       <h1 style={{ fontSize: "2rem", fontWeight: 700, marginBottom: 16 }}>{review.title}</h1>
       <p style={{ fontSize: "1.1rem", color: "var(--text-muted)", marginBottom: 24 }}>{review.excerpt}</p>
 
+      {review.image && !review.image.includes("placeholder") && (
+        <img
+          src={review.image}
+          alt={review.title}
+          style={{ width: "100%", maxHeight: 400, objectFit: "cover", borderRadius: 12, marginBottom: 24 }}
+          loading="lazy"
+        />
+      )}
+
       <div className="card" style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 32 }}>
         <div>
           <span style={{ color: "#F59E0B", fontSize: "1.25rem" }}>

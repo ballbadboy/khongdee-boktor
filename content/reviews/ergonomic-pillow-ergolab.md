@@ -4,8 +4,8 @@ excerpt: "ทดสอบหมอนยางพารา ErgoLab 30 วัน 
 category: health
 rating: 5
 price: "฿890"
-shopeeLink: "https://s.shopee.co.th/5AnsGpL3Qg"
-image: "/images/placeholder.svg"
+shopeeLink: "https://shopee.co.th/search?keyword=%E0%B8%AB%E0%B8%A1%E0%B8%AD%E0%B8%99%E0%B8%A2%E0%B8%B2%E0%B8%87%E0%B8%9E%E0%B8%B2%E0%B8%A3%E0%B8%B2+ErgoLab&af_sub_siteid=15306100390"
+image: "https://images.unsplash.com/photo-1631679706909-1844bbd07221?w=800&h=600&fit=crop"
 date: "2026-03-19"
 tags: ["หมอน", "ยางพารา", "สุขภาพ", "นอนหลับ"]
 ---
