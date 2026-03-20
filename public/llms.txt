@@ -1,0 +1,28 @@
+# ของดีบอกต่อ — Shopee Affiliate Review Site
+
+> Thai product review website curating the best deals from Shopee Thailand. Independent reviews with real purchase data, price comparisons, and honest recommendations.
+
+## About
+- Website: https://khongdee-boktor.vercel.app
+- Language: Thai (th)
+- Focus: Product reviews, Shopee deals, Smart Home, Tech gadgets
+- Author: ของดีบอกต่อ team (@Drk_thorSx on X/Twitter)
+
+## Content
+- Product reviews with pros/cons analysis
+- FAQ sections for each product
+- Price comparisons and value assessments
+- Smart Home setup guides
+- Tech gadget recommendations
+
+## Categories
+- Tech & Gadget: Bluetooth headphones, smart devices, accessories
+- Home: Smart plugs, LED lamps, home improvement
+- Health: Wellness products, fitness gear
+- Beauty: Skincare, cosmetics recommendations
+
+## Review Standards
+- All products are sourced from Shopee Thailand
+- Prices and links are verified before publishing
+- Reviews include real user feedback analysis
+- No sponsored content — independent editorial

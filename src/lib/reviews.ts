@@ -25,6 +25,9 @@ export interface Review {
   date: string;
   tags: string[];
   products: Product[];
+  pros: string[];
+  cons: string[];
+  faq: { q: string; a: string }[];
   content?: string;
 }
 
@@ -43,11 +46,14 @@ export function getAllReviews(): Review[] {
         category: data.category || "other",
         rating: data.rating || 0,
         price: data.price || "",
-        shopeeLink: data.shopeeLink || "https://s.shopee.co.th/5AnsGpL3Qg",
-        image: data.image || "/images/placeholder.svg",
+        shopeeLink: data.shopeeLink || "#",
+        image: data.image || "",
         date: data.date || new Date().toISOString().slice(0, 10),
         tags: data.tags || [],
         products: data.products || [],
+        pros: data.pros || [],
+        cons: data.cons || [],
+        faq: data.faq || [],
       };
     })
     .sort((a, b) => b.date.localeCompare(a.date));
@@ -66,11 +72,14 @@ export async function getReviewBySlug(slug: string): Promise<Review | null> {
     category: data.category || "other",
     rating: data.rating || 0,
     price: data.price || "",
-    shopeeLink: data.shopeeLink || "https://s.shopee.co.th/5AnsGpL3Qg",
-    image: data.image || "/images/placeholder.svg",
+    shopeeLink: data.shopeeLink || "#",
+    image: data.image || "",
     date: data.date || new Date().toISOString().slice(0, 10),
     tags: data.tags || [],
     products: data.products || [],
+    pros: data.pros || [],
+    cons: data.cons || [],
+    faq: data.faq || [],
     content: result.toString(),
   };
 }
@@ -81,8 +90,6 @@ export function getCategories() {
     { slug: "home", name: "ของใช้ในบ้าน", emoji: "🏠" },
     { slug: "beauty", name: "ความสวยความงาม", emoji: "💄" },
     { slug: "health", name: "สุขภาพ", emoji: "💪" },
-    { slug: "kids", name: "แม่และเด็ก", emoji: "👶" },
-    { slug: "food", name: "อาหาร", emoji: "🍜" },
   ];
 }
 

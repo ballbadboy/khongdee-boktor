@@ -1,50 +1,80 @@
-import { getReviewsByCategory, getCategories } from "@/lib/reviews";
+import { getCategories, getReviewsByCategory } from "@/lib/reviews";
 import type { Metadata } from "next";
 
-export function generateStaticParams() {
+export async function generateStaticParams() {
   return getCategories().map((c) => ({ slug: c.slug }));
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
   const { slug } = await params;
   const cat = getCategories().find((c) => c.slug === slug);
+  const name = cat?.name || slug;
   return {
-    title: `${cat?.name || slug} — ของดีบอกต่อ`,
-    description: `รวมรีวิวสินค้า${cat?.name || ""}ที่ดีที่สุด คัดสรรจาก Shopee`,
+    title: `${name} — ของดีบอกต่อ`,
+    description: `รวมรีวิวสินค้า ${name} จาก Shopee คัดสรรแล้วว่าดีจริง`,
+    alternates: {
+      canonical: `https://khongdee-boktor.vercel.app/category/${slug}`,
+    },
   };
 }
 
-export default async function CategoryPage({ params }: { params: Promise<{ slug: string }> }) {
+export default async function CategoryPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
   const { slug } = await params;
   const cat = getCategories().find((c) => c.slug === slug);
   const reviews = getReviewsByCategory(slug);
 
   return (
-    <div className="fade-in">
-      <a href="/" style={{ color: "var(--text-muted)", textDecoration: "none" }}>← กลับหน้าแรก</a>
+    <div className="section" style={{ paddingTop: "clamp(32px, 4vw, 48px)" }}>
+      <nav className="breadcrumb">
+        <a href="/">หน้าแรก</a>
+        <span className="breadcrumb-sep">/</span>
+        <span>{cat?.name || slug}</span>
+      </nav>
 
-      <h1 style={{ fontSize: "2rem", fontWeight: 700, margin: "24px 0 8px" }}>
-        {cat?.emoji} {cat?.name || slug}
-      </h1>
-      <p style={{ color: "var(--text-muted)", marginBottom: 32 }}>
-        รวมรีวิวสินค้า{cat?.name || ""}ที่ดีที่สุด คัดสรรจาก Shopee
-      </p>
+      <div className="section-header">
+        <h1 style={{ fontSize: "clamp(1.5rem, 3vw, 2rem)" }}>
+          {cat?.emoji} {cat?.name || slug}
+        </h1>
+        <span style={{ color: "var(--text-muted)", fontSize: "0.875rem" }}>
+          {reviews.length} รีวิว
+        </span>
+      </div>
 
       {reviews.length === 0 ? (
-        <p style={{ color: "var(--text-muted)", textAlign: "center", padding: 48 }}>
-          ยังไม่มีรีวิวในหมวดนี้ เร็วๆ นี้!
-        </p>
+        <div className="empty-state">
+          <p>ยังไม่มีรีวิวในหมวดนี้</p>
+        </div>
       ) : (
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: 24 }}>
+        <div className="review-grid">
           {reviews.map((review) => (
-            <a key={review.slug} href={`/review/${review.slug}`} className="card" style={{ textDecoration: "none", color: "var(--text)" }}>
-              <h3 style={{ fontWeight: 600, marginBottom: 8 }}>{review.title}</h3>
-              <p style={{ color: "var(--text-muted)", fontSize: "0.9rem", marginBottom: 12 }}>{review.excerpt}</p>
-              <div style={{ display: "flex", justifyContent: "space-between" }}>
-                <span style={{ color: "#F59E0B" }}>
-                  {Array.from({ length: 5 }, (_, i) => (i < review.rating ? "★" : "☆")).join("")}
-                </span>
-                <span style={{ fontWeight: 700, color: "var(--shopee)" }}>{review.price}</span>
+            <a
+              key={review.slug}
+              href={`/review/${review.slug}`}
+              className="review-card"
+            >
+              <div className="review-card-body">
+                <div className="review-card-meta">
+                  <span className="review-card-cat">{review.category}</span>
+                  <span className="review-card-stars">
+                    {Array.from({ length: 5 }, (_, i) =>
+                      i < review.rating ? "★" : "☆"
+                    ).join("")}
+                  </span>
+                </div>
+                <h3 className="review-card-title">{review.title}</h3>
+                <p className="review-card-excerpt">{review.excerpt}</p>
+                <div className="review-card-footer">
+                  <span className="review-card-price">{review.price}</span>
+                  <span className="review-card-btn">อ่านรีวิว →</span>
+                </div>
               </div>
             </a>
           ))}

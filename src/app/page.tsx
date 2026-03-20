@@ -14,24 +14,38 @@ export default function Home() {
 
   return (
     <>
-      {/* ── Hero ── */}
       <section className="hero">
         <div className="hero-badge animate-in">
-          <span>●</span> อัพเดทล่าสุด {new Date().toLocaleDateString("th-TH", { day: "numeric", month: "short", year: "numeric" })}
+          <span>●</span> อัพเดทล่าสุด{" "}
+          {new Date().toLocaleDateString("th-TH", {
+            day: "numeric",
+            month: "short",
+            year: "numeric",
+          })}
         </div>
         <h1 className="animate-in delay-1">
-          คัดมาแล้ว<br /><em>ของดีจริง</em>
+          คัดมาแล้ว
+          <br />
+          <em>ของดีจริง</em>
         </h1>
         <p className="hero-sub animate-in delay-2">
-          รวมรีวิวสินค้าจาก Shopee ที่คนใช้จริงบอกต่อ ไม่ต้องเสียเวลาหาเอง ไม่ต้องเสี่ยงซื้อผิด
+          รวมรีวิวสินค้าจาก Shopee ที่คนใช้จริงบอกต่อ
+          ไม่ต้องเสียเวลาหาเอง ไม่ต้องเสี่ยงซื้อผิด ทุกชิ้นคัดสรรมาแล้วว่าคุ้มค่า
         </p>
         <a href="#reviews" className="hero-cta animate-in delay-3">
           ดูรีวิวล่าสุด
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10m0 0L9 4m4 4L9 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path
+              d="M3 8h10m0 0L9 4m4 4L9 12"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
         </a>
       </section>
 
-      {/* ── Trust Bar ── */}
       <div className="trust-bar animate-in delay-4">
         <div className="trust-item">
           <div className="trust-icon">✓</div>
@@ -43,7 +57,7 @@ export default function Home() {
         </div>
         <div className="trust-item">
           <div className="trust-icon">↻</div>
-          <span>อัพเดททุกวัน</span>
+          <span>อัพเดททุกสัปดาห์</span>
         </div>
         <div className="trust-item">
           <div className="trust-icon">🛡</div>
@@ -51,14 +65,13 @@ export default function Home() {
         </div>
       </div>
 
-      {/* ── Categories ── */}
       <section className="section">
         <div className="section-header">
           <h2>หมวดหมู่</h2>
         </div>
         <div className="cat-grid">
-          {categories.map((cat, i) => (
-            <a key={cat.slug} href={`/category/${cat.slug}`} className={`cat-card animate-in delay-${i + 1}`}>
+          {categories.map((cat) => (
+            <a key={cat.slug} href={`/category/${cat.slug}`} className="cat-card">
               <div className="cat-icon">{cat.emoji}</div>
               <span className="cat-name">{cat.name}</span>
             </a>
@@ -66,11 +79,9 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── Latest Reviews ── */}
       <section className="section" id="reviews">
         <div className="section-header">
           <h2>รีวิวล่าสุด</h2>
-          <a href="/category/tech">ดูทั้งหมด →</a>
         </div>
 
         {reviews.length === 0 ? (
@@ -79,16 +90,12 @@ export default function Home() {
           </div>
         ) : (
           <div className="review-grid">
-            {reviews.map((review, i) => (
-              <a key={review.slug} href={`/review/${review.slug}`} className={`review-card animate-in delay-${i + 1}`}>
-                {review.image && !review.image.includes("placeholder") && (
-                  <img
-                    src={review.image}
-                    alt={review.title}
-                    className="review-card-img"
-                    loading="lazy"
-                  />
-                )}
+            {reviews.map((review) => (
+              <a
+                key={review.slug}
+                href={`/review/${review.slug}`}
+                className="review-card"
+              >
                 <div className="review-card-body">
                   <div className="review-card-meta">
                     <span className="review-card-cat">{review.category}</span>
@@ -99,8 +106,16 @@ export default function Home() {
                   <div className="review-card-footer">
                     <span className="review-card-price">{review.price}</span>
                     <span className="review-card-btn">
-                      ดูใน Shopee
-                      <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10m0 0L9 4m4 4L9 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                      อ่านรีวิว
+                      <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                        <path
+                          d="M3 8h10m0 0L9 4m4 4L9 12"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
                     </span>
                   </div>
                 </div>
